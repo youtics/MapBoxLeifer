@@ -1,6 +1,7 @@
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 //import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 @Injectable({
@@ -28,9 +29,19 @@ export class MapCustomService {
           zoom: this.zoom,
           center:[this.long, this.lat]
         });
+        /**AGREGAR BOTONES DE ZOOM PERO ESTOS SE PISAN CON LOS ESTILOS DE NUESTRO STYLE */
+        //this.map.addControl(new mapboxgl.NavigationControl());
+
+         /**
+         *  TODO: Aqui construimos el input buscador de direcciones
+         */
+          const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken, mapboxgl:undefined
+          });
+  
         resolve({
-          map: this.map,
-        })
+          map: this.map, geocoder
+        });
       }catch(e)
       {
         reject(e)
