@@ -17,13 +17,13 @@ export class MapCustomService {
   style = 'mapbox://styles/mapbox/streets-v11';
   lat = 40.416906;
   long = -3.7056721;
-  zoom = 3
+  zoom = 3;
 
   cbAddress: EventEmitter<any> = new EventEmitter<any>();
   wayPoints: Array<any> = [];
   markerDriver: any = null;
 
-  constructor() { 
+  constructor(private httpClient: HttpClient) { 
     this.mapbox.accessToken = environment.mapPK;
   }
 
@@ -52,7 +52,7 @@ export class MapCustomService {
             const {result} = $event;
             console.log('*********', result);
             //limpio la direccion buscada en el imput
-            //geocoder.clear($event);
+            //geocoder.clear();
 
             /**SI IMPRIMO EL RESULT QUE ME DEVUELVE EL $event ME RETORNA MUCHOS DATOS 
              * ENTRE ELLOS LAS COORDENADAS - MIRAR LA CONSOLA */
@@ -79,8 +79,8 @@ export class MapCustomService {
     ].join('');
     console.log(url);
 
-    //this.httpClient.get(url).subscribe((res: any) => {
-/*
+    this.httpClient.get(url).subscribe((res: any) => {
+
       const data = res.routes[0];
       const route = data.geometry.coordinates;
 
@@ -96,7 +96,6 @@ export class MapCustomService {
         }
       });
 
-
       this.map?.addLayer({
         id: 'route',
         type: 'line',
@@ -109,17 +108,17 @@ export class MapCustomService {
           'line-color': 'red',
           'line-width': 5
         }
-      });
+      }); 
 
       this.wayPoints = route;
+      //fitbounds ajusta mi mapa al tamaño de la ruta
       this.map?.fitBounds([route[0], route[route.length - 1]], {
         padding: 100
       })
 
-      this.socket.emit('find-driver', {points: route});
+      //this.socket.emit('find-driver', {points: route});
 
-    });
-*/
+    });//fin del httpclient
 
   }
 
