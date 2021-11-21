@@ -122,16 +122,15 @@ export class MapCustomService {
 
   }
 
- /* addMarkerCustom(coords:any): void {
+  addMarkerCustom(coords:any): void {
     console.log('----->', coords)
     const el = document.createElement('div');
     el.className = 'marker';
+    
     if (!this.markerDriver) {
       this.markerDriver = new mapboxgl.Marker(el);
     } else {
-      this.markerDriver
-        .setLngLat(coords)
-        .addTo(this.map);
+      this.markerDriver.setLngLat(coords).addTo(this.map);
     }
-  }*/
+  }
 }//fin de la clase

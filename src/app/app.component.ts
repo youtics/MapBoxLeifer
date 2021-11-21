@@ -46,6 +46,10 @@ export class AppComponent implements OnInit {
   changeMode(mode: string): void {
     this.modeInput = mode;
   }
+  //funcion que ubica un marcador en una latitud y longitud especifica, cree un boton en html
+  testMarker(): void {
+    this.mapCustomService.addMarkerCustom([-8.628139488926513, 41.159082702543635]);
+  }
 }
 
 export class WayPoints {
